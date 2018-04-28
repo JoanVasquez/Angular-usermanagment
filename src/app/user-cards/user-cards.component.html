@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6 col-sm-5 col-sm-offset-1">
+                    <div class="input-group stylish-input-group">
+                        <input type="text" class="form-control" [(ngModel)]="search" placeholder="Search">
+                        <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3 col-sm-offset-3 ">
+                    <div class="col-xs-6 col-xs-offset-4">
+                        <button class="btn btn-default" (click)="onLogout()">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="row text-center">
+                <div class="col-xs-12 col-sm-4 col-centered" *ngFor="let user of users | filter: search | paginate: config">
+                    <div class="col-xs-12 main-section">
+                        <div class="row">
+                            <div class="col-xs-12 profile-header"></div>
+                        </div>
+                        <div class="row user-detail">
+                            <div class="col-xs-12">
+                                <img src="./assets/images/user.png" class="img-thumbnail">
+                                <h3>{{user.name}}</h3>
+                                <div class="text-left">
+                                    <p>
+                                        <i class="glyphicon glyphicon-user" aria-hidden="true"></i> {{user.email}}</p>
+                                    <p>
+                                        <i class="glyphicon glyphicon-lock" aria-hidden="true"></i> **********</p>
+                                </div>
+                                <hr>
+                                <button class="btn btn-success btn-sm" (click)="onShowEditModal(user)">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <span> Edit</span>
+                                </button>
+                                <button class="btn btn-danger btn-sm" (click)="onShowDeleteModal(user.userId)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                    <span> Delete</span>
+                                </button>
+                                <hr>
+                                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pagination-template #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
+                <div class="row">
+                    <div class="col-xs-12 text-center">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li [class.disabled]="p.isFirstPage()">
+                                    <a href="#" [class.disabled]="p.isFirstPage()" (click)="p.previous()" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value">
+                                    <a href="#" (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">
+                                        {{page.label}}
+                                    </a>
+                                    <a *ngIf="p.getCurrent() === page.value">
+                                        {{page.label}}
+                                    </a>
+                                </li>
+                                <li [class.disabled]="p.isLastPage()">
+                                    <a href="#" [class.disabled]="p.isLastPage()" (click)="p.next()" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </pagination-template>
+        </div>
+    </div>
+</div>
+
+<div #edit></div>

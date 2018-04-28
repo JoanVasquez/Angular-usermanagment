@@ -1,0 +1,29 @@
+<form class="form-container" #signinForm="ngForm" novalidate (ngSubmit)="signIn(signinForm.valid)">
+    <h1 class="text-center">Sign In!</h1>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" name="email" [(ngModel)]="userEmail" #email="ngModel" class="form-control" id="user-email" placeholder="Enter email"
+            required minlength="5" maxlength="30" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+    </div>
+    <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+        <div *ngIf="email.errors.required">An email is required.</div>
+        <div *ngIf="email.errors.minlength">Min characters: {{email.errors.minlength.requiredLength}}.</div>
+        <div *ngIf="email.errors.maxlength">Max characters: {{email.errors.maxlength.requiredLength}}.</div>
+        <div *ngIf="email.errors.pattern">Email does not match the pattern.</div>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="pass" [(ngModel)]="userPass" #password="ngModel" class="form-control" id="user-password" placeholder="Password"
+            required minlength="2" maxlength="8">
+    </div>
+    <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+        <div *ngIf="password.errors.required">A password is required.</div>
+        <div *ngIf="password.errors.minlength">Min characters: {{password.errors.minlength.requiredLength}}.</div>
+        <div *ngIf="password.errors.maxlength">Max characters: {{password.errors.maxlength.requiredLength}}.</div>
+    </div>
+    <p class="text-center">
+        <a href="#" id="forgotten-password">Forgot Password?</a>
+    </p>
+    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    
+</form>

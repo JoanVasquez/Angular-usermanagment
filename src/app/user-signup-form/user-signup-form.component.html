@@ -1,0 +1,41 @@
+<form class="form-container" #userForm="ngForm" novalidate (ngSubmit)="saveUser(userForm.valid)">
+
+  <h1 class="text-center" id="form-header">Sign Up!</h1>
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" [(ngModel)]="user.name" #name="ngModel" class="form-control" id="name" placeholder="Enter Name"
+      required minlength="2" maxlength="20">
+  </div>
+  <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+    <div *ngIf="name.errors.required">A name is required.</div>
+    <div *ngIf="name.errors.minlength">Min characters: {{name.errors.minlength.requiredLength}}.</div>
+    <div *ngIf="name.errors.maxlength">Max characters: {{name.errors.maxlength.requiredLength}}.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" name="email" [(ngModel)]="user.email" #email="ngModel" class="form-control" id="email" placeholder="Enter email"
+      required minlength="5" maxlength="30" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+  </div>
+  <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+    <div *ngIf="email.errors.required">An email is required.</div>
+    <div *ngIf="email.errors.minlength">Min characters: {{email.errors.minlength.requiredLength}}.</div>
+    <div *ngIf="email.errors.maxlength">Max characters: {{email.errors.maxlength.requiredLength}}.</div>
+    <div *ngIf="email.errors.pattern">Email does not match the pattern.</div>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" name="tempPass" [(ngModel)]="user.tempPass" #password="ngModel" class="form-control" id="password"
+      placeholder="Password" required minlength="2" maxlength="8">
+  </div>
+  <div class="alert alert-danger" *ngIf="password.touched && !password.valid">
+    <div *ngIf="password.errors.required">A password is required.</div>
+    <div *ngIf="password.errors.minlength">Min characters: {{password.errors.minlength.requiredLength}}.</div>
+    <div *ngIf="password.errors.maxlength">Max characters: {{password.errors.maxlength.requiredLength}}.</div>
+  </div>
+
+  <button type="submit" class="btn btn-primary btn-block">Submit</button>
+  <button type="submit" class="btn btn-default btn-block">Clean</button>
+</form>
